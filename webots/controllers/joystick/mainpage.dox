@@ -1,0 +1,28 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b joystick is a toy example of a Webots ROS interface
+
+This sample ROS node is actually a Webots robot controller that launches the
+ROS joy node and subscribes to its 'joy' topic to read the input from a
+joystick. This input is used to drive a simulated robot in Webots.
+
+It is a good starting point to implement an interface between Webots and ROS
+for controlling simulated robots in Webots from ROS nodes.
+
+\section codeapi Code API
+
+<!--
+Provide links to specific auto-generated API documentation within your
+package that is of particular interest to a reader. Doxygen will
+document pretty much every part of your code, so do your best here to
+point the reader to the actual API.
+
+If your codebase is fairly large or has different sets of APIs, you
+should use the doxygen 'group' tag to keep these APIs together. For
+example, the roscpp documentation has 'libros' group.
+-->
+
+
+*/

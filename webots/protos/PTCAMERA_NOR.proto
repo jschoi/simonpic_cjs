@@ -1,0 +1,172 @@
+#VRML_OBJ V6.0
+#
+# Author: JongSuk Choi (pristine70@gmail.com)
+
+PROTO PTCAMERA_NOR [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 1 0 0 -1.5708
+  field SFInt32 width 192
+  field SFInt32 height 144
+  field SFFloat maxRange 3.5
+  field SFFloat colorNoise 0.04
+  field SFString cameraName "ptcam"
+  field SFString panServoName "ptcam_pan_servo"
+  field SFString tiltServoName "ptcam_tilt_servo"
+  field SFVec2f windowPosition 0 0
+  field SFNode physics NULL
+#  field SFString controllerName "ptcam_nor"
+]
+{
+Solid {
+  translation IS translation
+  rotation IS rotation
+  children [
+    DEF PTCAM_BODY Transform {
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 1 1 1
+            }
+          }
+          geometry Cylinder {
+            height 0.05
+            radius 0.1
+          }
+        }
+      ]
+    }
+    DEF PTCAM_PAN_SERVO Servo {
+      rotation 0 0 1 0
+      children [
+        DEF PTCAM_BAR1 Transform {
+          translation 0.07 0 0.145
+          children [
+            DEF PTCAM_BAR Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 1 1 1
+                }
+              }
+              geometry Box {
+                size 0.01 0.05 0.14
+              }
+            }
+          ]
+        }
+        DEF PTCAM_PAN Transform {
+          translation 0 0 0.05
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Cylinder {
+                height 0.05
+                radius 0.1
+              }
+            }
+          ]
+        }
+        DEF PTCAM_TILT_SERVO Servo {
+          translation 0.06 0 0.165
+          rotation 1 0 0 0
+          children [
+            DEF CAMERA_jschoi Camera {
+              translation -0.06 0.06 0
+              rotation 1 0 0 1.5708
+              children [
+                Transform {
+                  rotation 1 0 0 1.5708
+                  children [
+                    Shape {
+                      appearance Appearance {
+                        material Material {
+                          diffuseColor 0.6 0.4 0.2
+                        }
+                      }
+                      geometry Cylinder {
+                        height 0.01
+                        radius 0.025
+                      }
+                    }
+                  ]
+                }
+              ]
+              name IS cameraName
+              width IS width
+              height IS height
+              maxRange IS maxRange
+              windowPosition IS windowPosition
+              antiAliasing TRUE
+              colorNoise IS colorNoise
+            }
+            DEF PTCAM_TILT Transform {
+              translation -0.06 0 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 1 1 1
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.1
+                    radius 0.05
+                  }
+                }
+              ]
+            }
+            Transform {
+              rotation 0 0 1 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 1 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.02 0.02
+                  }
+                }
+              ]
+            }
+          ]
+          name IS tiltServoName
+          boundingObject Group {
+            children [
+              USE PTCAM_TILT
+            ]
+          }
+          controlP 40
+        }
+        DEF PTCAM_BAR2 Transform {
+          translation -0.07 0 0.145
+          rotation 1 0 0 0
+          children [
+            USE PTCAM_BAR
+          ]
+        }
+      ]
+      name IS panServoName
+      controlP 40
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE PTCAM_BAR2
+      USE PTCAM_BAR1
+      USE PTCAM_BODY
+      USE PTCAM_PAN
+    ]
+  }
+  physics IS physics
+#  controller IS controllerName
+}
+}
+

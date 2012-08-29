@@ -1,0 +1,10 @@
+<launch>
+<!-- launch multiple ROS nodes that are to subscribe to sensor node's topic named in 'args' field. You should assign your own unique name for each node -->
+<!-- You need to change the group ns corresponding to your group such as 'where', 'who', 'what', or 'percept'-->
+	<group ns="where">
+		<node pkg="sp_sn" type="image_subscriber" name="listener01" args="/rb01_kinect01/image" />
+		<node pkg="sp_sn" type="image_subscriber" name="listener02" args="/rb01_kinect01/image_d" />
+		<node pkg="sp_sn" type="image_subscriber" name="listener03" args="/sn_env_camera02/image" />
+		<node pkg="sp_sn" type="image_subscriber" name="listener04" args="/sn_env_camera03/image" />
+	</group>
+</launch>

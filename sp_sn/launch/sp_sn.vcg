@@ -1,0 +1,63 @@
+Background\ ColorB=0
+Background\ ColorG=0
+Background\ ColorR=0
+Camera\ Config=0.785398 0.785398 10 0 0 0
+Camera\ Type=rviz::OrbitViewController
+Fixed\ Frame=/map
+Image.Enabled=1
+Image.Image\ Topic=/rb01_kinect01/image
+Image.Queue\ Size=2
+Image.Transport\ Hint=raw
+Image2.Enabled=1
+Image2.Image\ Topic=/rb01_kinect01/image_d
+Image2.Queue\ Size=2
+Image2.Transport\ Hint=raw
+Image3.Enabled=1
+Image3.Image\ Topic=/sn_env_camera02/image
+Image3.Queue\ Size=2
+Image3.Transport\ Hint=raw
+Image4.Enabled=1
+Image4.Image\ Topic=/sn_env_camera03/image
+Image4.Queue\ Size=2
+Image4.Transport\ Hint=raw
+Laser\ Base.Alpha=0.5
+Laser\ Base.Cell\ Size=1
+Laser\ Base.ColorB=0.5
+Laser\ Base.ColorG=0.5
+Laser\ Base.ColorR=0.5
+Laser\ Base.Enabled=1
+Laser\ Base.Line\ Style=1
+Laser\ Base.Line\ Width=0.03
+Laser\ Base.Normal\ Cell\ Count=0
+Laser\ Base.OffsetX=0
+Laser\ Base.OffsetY=0
+Laser\ Base.OffsetZ=0
+Laser\ Base.Plane=0
+Laser\ Base.Plane\ Cell\ Count=10
+Laser\ Base.Reference\ Frame=<Fixed Frame>
+Property\ Grid\ Splitter=1,1
+Property\ Grid\ State=expanded=.Global Options,Laser Base.Enabled,Image.Enabled,Image2.Enabled,Image3.Enabled,Image4.Enabled;splitterratio=0.505618
+QMainWindow=000000ff00000000fd00000003000000000000011d00000396fc0200000006fb000000100044006900730070006c006100790073000000001d000000ee000000ee00fffffffb0000000c00430061006d0065007200610000000154000000a80000000000000000fb0000000a0049006d006100670065010000001d000000f00000001900fffffffb0000000c0049006d00610067006500320100000113000000cc0000001900fffffffb0000000c0049006d006100670065003301000001e5000000eb0000001900fffffffb0000000c0049006d006100670065003401000002d6000000dd0000001900ffffff000000010000013100000396fc0200000003fb0000001e0054006f006f006c002000500072006f0070006500720074006900650073010000001d000001510000006700fffffffb0000000a00560069006500770073010000017400000148000000bb00fffffffb0000001200530065006c0065006300740069006f006e01000002c2000000f10000006700ffffff000000030000061a0000003efc0100000001fb0000000800540069006d006501000000000000061a000002bf00ffffff000003c00000039600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+Target\ Frame=<Fixed Frame>
+Tool\ 2D\ Nav\ GoalTopic=/move_base_simple/goal
+Tool\ 2D\ Pose\ EstimateTopic=initialpose
+[Display0]
+ClassName=rviz::GridDisplay
+Name=Laser Base
+[Display1]
+ClassName=rviz::ImageDisplay
+Name=Image
+[Display2]
+ClassName=rviz::ImageDisplay
+Name=Image2
+[Display3]
+ClassName=rviz::ImageDisplay
+Name=Image3
+[Display4]
+ClassName=rviz::ImageDisplay
+Name=Image4
+[Window]
+Height=1051
+Width=1578
+X=322
+Y=44

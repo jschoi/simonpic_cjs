@@ -1,0 +1,7 @@
+<launch>
+<!-- launch file called by the Webots controller to launch the mjpeg_server ROS node -->
+  <node pkg="mjpeg_server" type="mjpeg_server" name="mjpeg_server" >
+  <param name="_port" value="8080" />
+  </node>
+</launch>
+

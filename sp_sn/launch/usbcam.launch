@@ -1,0 +1,5 @@
+<launch>
+	<env name="GSCAM_CONFIG" value="v4l2src device=/dev/video0 ! video/x-raw-rgb ! ffmpegcolorspace" />
+	<node pkg="gscam" type="gscam_simon" name="gscam01" args="gscam01/image_raw" respawn="false" output="screen" />
+	<node pkg="sp_sn" type="image_subscriber" name="listen_usbcam01" args="gscam01/image_raw" />
+</launch>

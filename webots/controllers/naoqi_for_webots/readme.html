@@ -1,0 +1,318 @@
+<html>
+<head>
+<title>NAOQI_FOR_WEBOTS</title>
+</head>
+<body>
+
+<h2>NAOQI_FOR_WEBOTS</h2>
+
+<h3>Introduction</h3>
+This project allows to connect to a Nao robot simulated in Webots with a NAOqi.
+This project was initially developed by Aldebaran-Robotics, it is now maintained by Cyberbotics under a GPL license.
+If you make improvements to this project please drop a message to Webots developpers so that they can incorporate your changes in future releases.
+The naoqi_for_webots source code is distributed with Webots in this directory: WEBOTS_HOME/projects/robots/nao/controllers/naoqi_for_webots.
+Here is a step-by-step procedure to compile, run and test naoqi_for_webots.
+In this document we will assume that Webots and Aldebaran SDK are installed in these directories:<br>
+<br>
+
+Linux:
+<pre>
+/usr/local/webots
+/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386
+</pre>
+
+Windows:
+<pre>
+C:\Program Files\Webots
+C:\Users\username\aldebaran-cpp-sdk-1.8.16-win32-vc90
+</pre>
+
+Mac:
+<pre>
+/Applications/Webots
+/Users/username/naoqi-sdk-1.10.25-mac
+</pre>
+
+<h3>1. Install Webots</h3>
+You need Webots version >= 6.3.4<br>
+It is available at:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.cyberbotics.com/products/webots/download.html">http://www.cyberbotics.com/products/webots/download.html</a><br>
+<br>
+Webots PRO, Webots EDU or the 30 days registered trial version are necessary to run naoqi_for_webots.
+The unregistered Webots DEMO version will not work: If you're using the DEMO version you should register it for 30 days, it's free!
+
+<h3>2. Install Aldebaran SDK for your platform</h3>
+You need the latest Aldebaran SDK version<br>
+It is available at:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://users.aldebaran-robotics.com">http://users.aldebaran-robotics.com</a><br>
+
+<h3>3. Set up the environment variables</h3>
+You need to setup the environment variables for Aldebaran's SDK as specified in:<br>
+<br>
+<strong>
+<a href="http://users.aldebaran-robotics.com/docs/site_en/reddoc/sdk/sdk.html">Red Documentation > SDK > Introduction</a><br>
+</strong>
+<br>
+To summarize: set the AL_DIR to the path where you have installed Aldebaran SDK.
+On Linux you can define this in your ~/.bashrc file, e.g.:<br>
+<pre>
+export AL_DIR=/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386
+</pre>
+
+On Mac you can define this in your ~/.MacOSX/environment.plist file, e.g.:<br>
+<pre>
+Key     Type    Value
+---     -----   -----
+AL_DIR  String  /Users/username/naoqi-sdk-1.10.25-mac
+</pre>
+
+Then you need to create a small startup script to launch webots:
+On Linux:<br>
+(This should not be added to your ~/.bashrc to avoid conflicts with your system's python)
+<pre>
+#!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$AL_DIR/lib
+export PATH=$AL_DIR/bin:$PATH
+export PYTHONPATH=$AL_DIR/lib
+/usr/local/webots/webots $@
+</pre>
+
+On the Mac:
+<pre>
+#!/bin/bash
+export DYLD_LIBRARY_PATH=/usr/lib:$AL_DIR/lib:$DYLD_LIBRARY_PATH
+export DYLD_FRAMEWORK_PATH=$AL_DIR/Frameworks
+export PATH=$AL_DIR/bin:$PATH
+export PYTHONPATH=$AL_DIR/lib
+/Applications/Webots/webots.app/Contents/MacOS/webots $@
+</pre>
+On Linux and Mac: you will need to start Webots by calling the script in order to define these variables.
+On Mac, you can also specify these variables in the ~/.MacOSX/environment.plist file, so you will be able to start Webots by clicking the icon instead of the script.
+<br>
+<br>
+On Windows these variables need to be defined in:<br>
+<br>
+<strong>
+Control Panel > System and Security > System > Advanced System Settings > Environment Variables > User variables:
+</strong>
+<br>
+<pre>
+Variable     Value
+--------     -----
+WEBOTS_HOME  C:\Program Files\Webots
+AL_DIR       C:\Users\username\aldebaran-cpp-sdk-1.8.16-win32-vc90
+PATH         %AL_DIR%\bin;%AL_DIR%\lib;C:\Python26;C:\Python26\scripts
+PYTHONPATH   %AL_DIR%\lib
+</pre>
+
+Note that the WEBOTS_HOME variable is used to indicate to the .vcproj where Webots header files and libs are located.
+
+<h3>4. Compile the naoqi_for_webots controller</h3>
+
+On Linux or Mac, open the "naoqi_for_webots.wbt" project in Webots.
+(Ignore Webots warning: "Could not find controller: naoqi_for_webtots...")
+Then the naoqi_for_webots source files should appear in Webots text editor.
+Then hit the [Build] button in Webots text editor.
+Webots will ask you to relocate the "nao" project to a directory outside of Webots installation where you have write access: please follow Webots instructions.
+After the project was relocated the compilation will resume and the output should look like this:
+<pre>
+make naoqi_for_webots 2>&1
+g++ -I"/usr/local/webots/include/controller/cpp" -I"/usr/local/webots/include" -I"/usr/local/webots/include/controller/c" -I"/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386/include" -DLINUX -MM naoproxy.cpp > naoproxy.d
+g++ -I"/usr/local/webots/include/controller/cpp" -I"/usr/local/webots/include" -I"/usr/local/webots/include/controller/c" -I"/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386/include" -DLINUX -MM naoqi_for_webots.cpp > naoqi_for_webots.d
+g++ -c -I"/usr/local/webots/include/controller/cpp" -I"/usr/local/webots/include" -Wall -I"/usr/local/webots/include/controller/c" -I"/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386/include"  -DLINUX  naoqi_for_webots.cpp -o naoqi_for_webots.o
+g++ -c -I"/usr/local/webots/include/controller/cpp" -I"/usr/local/webots/include" -Wall -I"/usr/local/webots/include/controller/c" -I"/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386/include"  -DLINUX  naoproxy.cpp -o naoproxy.o
+g++ -o naoqi_for_webots   naoqi_for_webots.o naoproxy.o  -L"/usr/local/webots/lib" -lController  -L"/home/username/aldebaran-cpp-sdk-1.8.16-linux-i386/lib" -lnaoqiclient -lCppController 
+done.
+</pre>
+
+On Windows you need to manually copy the "nao" project to location where you have write access.
+For example you should copy this project folder "C:\Program Files\Webots\projects\robots\nao" to e.g. "C:\Users\username\Documents\nao".
+Then open the "C:\Users\username\Documents\nao\controllers\naoqi_for_webots\naoqi_for_webots.sln" file and press F7 to build.
+Note that the provided "naoqi_for_webots.vcproj" requires Visual Studio 9 2008.
+The compilation should create the "naoqi_for_webots.exe" controller for Webots.
+Note that the "naoqi_for_webots.exe" controller must be located in the same directory as the source files and the .vcproj, because this is where Webots will look for it.
+
+<h3>5. Run the naoqi_for_webots project</h3>
+Open the world: "naoqi_for_webots.wbt", then hit the [Run] button in Webots to start the naoqi_for_webots simulation and controller.
+You can check that naoqi_for_webots controller is running by lifting and dropping the Nao robot in Webots 3D window.
+To lift the robot in Webots: select the robot, then press the [Shift] key and the middle mouse button, then move the mouse up.
+If the naoqi_for_webots controller runs as expected, then the nao robot should fall on the floor.
+If the nao robot does not fall this indicates that the simulation is blocked, probably because the naoqi_for_webots controller has crashed.
+In this case see "Troubleshooting" below.
+
+<h3>6. Test with Telepathe</h3>
+The naoqi_for_webots controller should run a local NAOqi, now you can check if this is working.
+Launch Telepathe, choose the Camera viewer, then connect to the NAOqi of the Webots controller on port 9559 (default).
+Then press the [Play] button, you should see the camera image of the Webots simulation.
+You can use the [Select bottom camera] checkbox to switch between the low and high cameras.
+
+<h3>7. Test with Choregraphe</h3>
+Launch Choregraphe and connect to the NAOqi of the naoqi_for_webots controller that appears in the list.
+When you change a joint angle in Choregraphe, the change should be reflected in the Webots simulation.
+You should be able to use the "Movement" and the "Walk" boxes of Choregraphe.
+You can get a Choregraphe evaluation key here:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.aldebaran-robotics.com/en/programmable">http://www.aldebaran-robotics.com/en/programmable</a>
+
+<h3>8. Test the "helloworld" C++ module</h3>
+Now we can try to compile a C++ local module, and load it in the simulated NAOqi.
+The following instruction (Linux) will help you to build the "helloworld" example module provided with the NAOqi SDK:
+Find more instructions here:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://users.aldebaran-robotics.com/docs/site_en/reddoc/sdk/using_cmake.html">http://users.aldebaran-robotics.com/docs/site_en/reddoc/sdk/using_cmake.html</a>
+<pre>
+$ cd $AL_DIR/modules/src/examples/helloworld
+$ mdir build
+$ cd build
+$ cmake -DCMAKE_TOOLCHAIN_FILE=$AL_DIR/toolchain-pc.cmake ..
+-- The C compiler identification is GNU
+-- The CXX compiler identification is GNU
+-- Check for working C compiler: /usr/bin/gcc
+...
+$ make
+[ 50%] Building CXX object CMakeFiles/helloworld.dir/alhelloworld.cpp.o
+[100%] Building CXX object CMakeFiles/helloworld.dir/helloworldmain.cpp.o
+Linking CXX shared library /home/yvan/software/naoqi-sdk-1.10.44-linux/lib/naoqi/libhelloworld.so
+[100%] Built target helloworld
+</pre>
+The newly built module should have been stored there:
+<pre>
+$ cd $AL_DIR/lib/naoqi
+$ ls libhelloworld.so
+libhelloworld.so
+</pre>
+Now edit the "autoload.ini" file:
+<pre>
+$ gedit $AL_DIR/preferences/autoload.ini
+</pre>
+Add a "helloworld" line, e.g.:
+<pre>
+...
+videoinput
+alresourcemanager
+behaviormanager
+helloworld
+</pre>
+Then start or revert the "naoqi_for_webots.wbt" simulation in Webots to load the "helloworld" module.
+You can check that the "helloworld" module is loaded like this:
+<pre>
+$ firefox http://localhost:9559
+</pre>
+Now you can test the "helloworld" module, by using the provided python test script:
+<pre>
+$ cd $AL_DIR/modules/src/examples/helloworld
+$ python test_alhelloworld.py 
+        START TESTING ALHelloWorld MODULE
+INFO: Destroying broker 'ALProxyBroker'
+</pre>
+At the same moment the "helloworld" module should output this line in Webots console:
+<pre>
+[naoqi_for_webots] 2011/08/04-09:08:48.802: INF: MyModule: Hello World!
+</pre>
+
+<h3>Using several NaoV3R robots in the simulation</h3>
+To simultaneously use several NaoV3R, you can proceed like this:
+In Webots duplicate the NaoV3R robot using the [Copy] and [Paste] button of the Scene Tree.
+You will need to specify a different "name" field for each NaoV3R in order to start each NAOqi on a different port.
+For example with the name "webots1", the NaoV3R will start NAOqi on port 9559.
+The default configuration is like this:
+<pre>
+NaoV3R.name  NAOqi port
+-----------  ----------
+"webots1"    9559
+"webots2"    9560
+"webots3"    9561
+"webots4"    9562
+"webots4"    9563
+</pre>
+
+This configuration can be modified in the file located in: "AL_DIR/preferences/simulator.xml"
+
+<h3>Troubleshooting</h3>
+If the simulation does not run, check that the naoqi_for_webots process is executing.
+You should see both the Webots and the naoqi_for_webots processes when you type this (Linux):
+<pre>
+    $ ps -e|grep webots
+     9129 pts/0    00:00:04 webots-bin
+     9169 pts/0    00:00:00 naoqi_for_webots
+</pre>
+
+If instead you get something like this:
+<pre>
+    $ ps -e|grep webots
+     9129 pts/0    00:00:04 webots-bin
+     9169 pts/0    00:00:00 naoqi_for_webots &lt;defunct&gt;
+</pre>
+
+this indicates that the naoqi_for_webots process has crashed.
+In this case check your environment variables.<br>
+Note that if the naoqi_for_webots is running, then it should run a local NAOqi broker.
+You can verify that the NAOqi broker is working this by using a browser and redirect it to this url: http://127.0.0.1:9559 (default configuration).
+You should see a webpage that lists the available NAOqi modules.
+If you don't see the webpage, there must be a problem with initializing NAOqi, check the environment variables.
+<br>
+<br>
+If you get this error message:<br>
+<pre>
+    [naoqi_for_webots] Traceback (most recent call last):
+    [naoqi_for_webots]   File "&lt;string&gt;", line 1, in &lt;module&gt;
+    [naoqi_for_webots] ImportError: No module named naoqi
+    [naoqi_for_webots] Traceback (most recent call last):
+    [naoqi_for_webots]   File "&lt;string&gt;", line 1, in &lt;module&gt;
+    [naoqi_for_webots] NameError: name 'naoqi' is not defined
+    [naoqi_for_webots] Traceback (most recent call last):
+    [naoqi_for_webots]   File "&lt;string&gt;", line 1, in &lt;module&gt;
+    [naoqi_for_webots] NameError: name 'naoqi' is not defined
+    [naoqi_for_webots] Traceback (most recent call last):
+    [naoqi_for_webots]   File "&lt;string&gt;", line 1, in &lt;module&gt;
+    [naoqi_for_webots] ImportError: No module named naoqi
+</pre>
+
+check that the PYTHONHOME and PYTHONPATH environment variables are defined.<br>
+<br>
+
+If you get this error message (Linux):<br>
+<pre>
+    [naoqi_for_webots] terminate called after throwing an instance of 'std::logic_error'
+    [naoqi_for_webots] what(): basic_string::_S_construct NULL not valid
+</pre>
+or this (Windows):
+<pre>
+    ...\nao\controllers\naoqi_for_webots\baoqi_for_webots.exe_webots
+    File: f:\dd\vctools\crtbld\self_x86\crt\src\xstring
+    Line: 1094
+    Expression: invalid null pointer
+</pre>
+
+check that the AL_DIR environment variable is defined.<br>
+<br>
+If you get this error message:<br>
+<pre>
+    [naoqi_for_webots] ALNaoSimulationAPI - cannot find the method 'putImage' in ALVideoDevice. Are you sur you've selected the SimulatorCam in VideoInput.xml ??? 
+    [naoqi_for_webots] 
+    [naoqi_for_webots] 2010/04/06-18h10m20s434ms: Error: ALVideoInput: ALVisionNaoCam::ALVisionNaoCam : error opening I2C for connection to dsPIC
+    [naoqi_for_webots] failed to set the camera size in naoqi !!!
+    [naoqi_for_webots] fail to send image to naoqi
+</pre>
+check that the $AL_DIR/preferences/VideInput.xml file contains a line like this:<br>
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;Preference name="videoModule" description="Name of the videoInput module to be loaded" type="string" value="SimulatorCam"/&gt;
+</pre>
+
+<h3>FAQ</h3>
+<h4>Why does my motion look different in Webots as on the real Nao?</h4>
+The main problem is with the timing.
+In fact Choregraphe executes the motion in real-time and Webots attempts to follow approximately in real-time (<i>WorldInfo.runRealTime = TRUE</i>), if your CPU/GPU is fast enough.
+In fact the motion will be more accurate while Webots indicates a simulation speed around 1x (= real-time) in the bottom right corner of Webots main window.
+If e.g. Webots shows 0.5x this means that it is only able to simulate at half real-time the motion provided by Choregraphe, as a result that the physics seems wrong.
+There is not much that can be done here, there is currently no synchronization between NAOqi and Webots.
+But it will help to reach about 1.0x simulation speed, e.g. by increasing the value of <i>WorldInfo.displayRefresh</i> in Webots or by using a faster CPU/GPU.
+
+<h3>Report Problems</h3>
+Concerning Webots and naoqi_for_webots:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://tech.groups.yahoo.com/group/webots-users">http://tech.groups.yahoo.com/group/webots-users</a><br>
+<br>
+Concerning NAOqi, Choregraphe and Telepathe:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://robocup.aldebaran-robotics.com">http://robocup.aldebaran-robotics.com</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://academics.aldebaran-robotics.com">http://academics.aldebaran-robotics.com</a><br>
+
+</body>
+</html>

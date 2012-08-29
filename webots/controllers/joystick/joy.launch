@@ -1,0 +1,7 @@
+<launch>
+<!-- launch file called by the Webots joystick controller to launch the joy ROS node -->
+  <node respawn="false" pkg="joy" type="joy" name="joy" >
+    <param name="dev" type="string" value="/dev/input/js1" />
+  </node>
+</launch>
+

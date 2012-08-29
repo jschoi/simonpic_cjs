@@ -1,0 +1,9 @@
+cd webots/controllers/kinect_ros
+make clean
+make
+cd ../sn_env_camera02_ctr
+make clean
+make
+cd ../sn_env_camera03_ctr
+make clean
+make

@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="rviz" name="rviz" type="rviz" args="--display-config $(find sp_sn)/launch/sp_sn.vcg"/>
+</launch>

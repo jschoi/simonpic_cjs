@@ -1,0 +1,7 @@
+<launch>
+<!-- launch file called by the Webots controller to launch the mjpeg_server ROS node -->
+	<node pkg="sp_sn" type="image_subscriber" name="listener_where" args="camera03/image" />
+	<node pkg="sp_sn" type="image_subscriber" name="listener_who" args="camera03/image" />
+	<node pkg="sp_sn" type="image_subscriber" name="listener_what" args="kinect03/image" />
+</launch>
+

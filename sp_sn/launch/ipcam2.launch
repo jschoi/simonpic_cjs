@@ -1,0 +1,5 @@
+<launch>
+	<env name="GSCAM_CONFIG" value="souphttpsrc location=http://161.122.111.236/mjpeg ! jpegdec ! ffmpegcolorspace" />
+	<node pkg="gscam" type="gscam" name="gscam" respawn="false" output="screen" />
+	<node pkg="sp_sn" type="image_subscriber" name="listen_ipcam" args="gscam/image_raw" />
+</launch>
