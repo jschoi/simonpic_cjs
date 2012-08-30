@@ -16,10 +16,6 @@
   <depend package="image_transport"/>
   <depend package="opencv2"/>
 
-  <rosdep name="libgstreamer0.10-dev"/>
-  <rosdep name="libgstreamer-plugins-base0.10-dev"/>
-  <depend package="sensor_msgs"/>
-  <depend package="camera_calibration_parsers"/>
 </package>
 
 
